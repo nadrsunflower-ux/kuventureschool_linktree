@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<!-- 고려대학교 일반대학원 첨단기술비즈니스학과 · 링크트리
+     단일 파일(빌드 도구 없음) / 외부 리소스는 Pretendard CDN 하나뿐 -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Safari가 우편번호·주소 숫자를 전화 링크로 자동 변환해 푸터 레이아웃을 깨는 것을 막는다 -->
+<meta name="format-detection" content="telephone=no">
+<!-- Safari 다크모드 자동 반전 방지 (CSS color-scheme 선언과 이중으로 둔다) -->
+<meta name="color-scheme" content="light">
+
+<title>고려대학교 일반대학원 첨단기술비즈니스학과 | 공식 링크</title>
+<meta name="description" content="고려대학교 일반대학원 첨단기술비즈니스학과 공식 링크 모음. 학과 홈페이지와 카카오톡 채널로 바로 이동할 수 있습니다.">
+<meta name="theme-color" content="#4a0a1a">
+<link rel="icon" href="assets/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/icon.png">
+
+<!-- Open Graph / Twitter
+     주의: OG 크롤러(카카오톡·인스타그램)는 절대 URL만 읽는다.
+     배포 주소가 확정되면 아래 og:url / og:image / twitter:image 세 줄의 도메인 부분만
+     실제 배포 주소로 교체할 것. 현재 값은 학과 공식 도메인 기준 경로다. -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="고려대학교 일반대학원 첨단기술비즈니스학과">
+<meta property="og:title" content="고려대학교 일반대학원 첨단기술비즈니스학과 | 공식 링크">
+<meta property="og:description" content="기술을 사업으로, 아이디어를 성장으로. 학과 홈페이지와 카카오톡 채널 바로가기.">
+<meta property="og:url" content="https://kuventureschool.com/linktree/">
+<meta property="og:image" content="https://kuventureschool.com/linktree/assets/icon.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="고려대학교 일반대학원 첨단기술비즈니스학과 | 공식 링크">
+<meta name="twitter:description" content="기술을 사업으로, 아이디어를 성장으로. 학과 홈페이지와 카카오톡 채널 바로가기.">
+<meta name="twitter:image" content="https://kuventureschool.com/linktree/assets/icon.png">
+
+<!-- 본문 서체: Pretendard Variable — 유일한 외부 리소스라 preconnect 한 줄의 이득이 크다 -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
+<style>
+/* ── 헤딩 서체: 고려대학교 전용서체 (로컬 woff2) ─────────────────── */
+@font-face {
+  font-family: "koreaUniv";
+  src: url("assets/fonts/KoreaUniv_L.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "koreaUniv";
+  src: url("assets/fonts/KoreaUniv_M.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "koreaUniv";
+  src: url("assets/fonts/KoreaUniv_B.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── 디자인 토큰 (원본 kuventureschool.com 추출값) ───────────────── */
+:root {
+  color-scheme: light;               /* Safari 자동 다크 반전 방지 */
+
+  --cream:         #faf7f2;
+  --ink:           #1f1416;
+  --crimson:       #8b0029;
+  --crimson-deep:  #4a0a1a;
+  --crimson-hover: #7a0024;
+  --line:          #e8e2da;
+  --line-soft:     #ece6dd;
+  --card:          #ffffff;
+  --muted:  rgba(31, 20, 22, 0.72);  /* 크림 위 약 6.99:1 */
+  --faint:  rgba(31, 20, 22, 0.62);  /* 크림 위 약 4.93:1 — AA 경계(0.595) 위로 올린 값 */
+
+  --radius: 0.5rem;
+
+  --sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --display: "koreaUniv", "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* 가로 스크롤 차단은 html·body 양쪽에 — Safari의 뷰포트 전파 규칙 때문에 body 단독은 불안정하다.
+   대신 이 문서에는 position:fixed 요소를 두지 않는다(iOS에서 fixed 클리핑 유발). */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overflow-x: hidden;
+  background-color: var(--cream);
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: rgba(139, 0, 41, 0.08);
+}
+
+img { display: block; max-width: 100%; border: 0; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; margin: 0; padding: 0; }
+p { margin: 0; }
+
+/* 스크린리더 전용 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── 상단 크림슨 띠 ───────────────────────────────────────────────
+   문서 흐름 안의 실제 요소다. position:fixed로 두면 스크롤 시
+   콘텐츠와 포커스 링 위를 덮는다. */
+.topbar {
+  width: 100%;
+  height: 4px;
+  background-color: var(--crimson-deep);
+}
+
+/* ── 레이아웃 ─────────────────────────────────────────────────── */
+.page {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  /* viewport-fit=cover를 썼으므로 좌우·하단 인셋을 모두 처리한다 */
+  padding: 0 22px 44px;
+  padding-left: calc(22px + env(safe-area-inset-left));
+  padding-right: calc(22px + env(safe-area-inset-right));
+  padding-bottom: calc(44px + env(safe-area-inset-bottom));
+}
+
+/* ── 마스트헤드 ───────────────────────────────────────────────── */
+.masthead {
+  padding-top: clamp(28px, 6vh, 48px);
+}
+
+/* 엠블럼: ku-emblem.svg는 viewBox만 있고 width/height 속성이 없다.
+   내재 비율 계산에 의존하지 않도록 CSS에 두 치수를 모두 못박는다.
+   596.20 / 800.20 = 0.7451 → 60px 기준 44.7px */
+.emblem {
+  width: 44.7px;
+  height: 60px;
+  margin-bottom: 18px;
+}
+
+/* 원본 사이트의 '얇은 크림슨 액센트' 어휘 */
+.tab {
+  display: block;
+  width: 26px;
+  height: 2px;
+  margin-bottom: 14px;
+  background-color: var(--crimson);
+}
+
+/* 학과 정식명칭은 h1 안에 한 덩어리로 둔다 — 고유명사를 중간에서 끊지 않는다 */
+.title {
+  margin: 0 0 12px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(28px, 8.4vw, 36px);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  word-break: keep-all;
+}
+
+.title .org {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--crimson);
+}
+
+.latin {
+  margin-bottom: 16px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.65;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.tagline {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(16px, 4.6vw, 18px);
+  line-height: 1.6;
+  color: var(--muted);
+  word-break: keep-all;
+}
+
+/* ── 링크: 카드가 아닌 전체폭 헤어라인 행 (원본의 행 문법) ───────── */
+.links {
+  margin-top: clamp(24px, 5vh, 36px);
+}
+
+.links-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 9px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.links-head .count {
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  column-gap: 14px;
+  min-height: 76px;            /* 터치 타겟 요건 56px을 크게 상회 */
+  padding: 16px 14px;
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  overflow: hidden;
+  touch-action: manipulation;  /* iOS 더블탭 줌 대기(약 300ms) 제거 */
+  -webkit-transition: color .3s var(--ease);
+  transition: color .3s var(--ease);
+}
+
+.links li:last-child .row {
+  border-bottom: 1px solid var(--line);
+}
+
+/* 좌→우로 채워지는 크림슨 스윕 (원본의 크림슨 섹션 반전을 인터랙션으로 번역) */
+.row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--crimson);
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transform-origin: left center;
+  transform-origin: left center;
+  -webkit-transition: -webkit-transform .38s var(--ease);
+  transition: transform .38s var(--ease);
+  z-index: 0;
+}
+
+/* 스윕 위로 올릴 대상만 명시한다.
+   `.row > *`로 쓰면 특이도(0,1,1)가 .sr-only(0,1,0)를 이겨
+   '새 창에서 열기' span이 absolute에서 풀리고 grid 4번째 아이템이 된다. */
+.row > .idx,
+.row > .row-body,
+.row > .arrow {
+  position: relative;
+  z-index: 1;
+}
+
+.idx {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  color: var(--crimson);
+  -webkit-transition: color .3s var(--ease);
+  transition: color .3s var(--ease);
+}
+
+.row-body { min-width: 0; }
+
+.label {
+  display: block;
+  font-size: 15.5px;
+  font-weight: 600;
+  line-height: 1.38;
+  letter-spacing: -0.012em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* 부가 설명은 장식이 아니라 정보다 — 대비를 확보하고 대문자 변환은 걸지 않는다 */
+.meta {
+  display: block;
+  margin-top: 3px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--muted);
+  word-break: keep-all;
+  -webkit-transition: color .3s var(--ease);
+  transition: color .3s var(--ease);
+}
+
+.arrow {
+  width: 19px;
+  height: 19px;
+  color: var(--crimson);
+  -webkit-transition: color .3s var(--ease), -webkit-transform .38s var(--ease);
+  transition: color .3s var(--ease), transform .38s var(--ease);
+}
+
+.arrow svg { display: block; width: 100%; height: 100%; }
+
+/* hover는 포인터 기기에서만 — 터치 기기의 hover 고착 방지 */
+@media (hover: hover) and (pointer: fine) {
+  .row:hover::before { -webkit-transform: scaleX(1); transform: scaleX(1); }
+  .row:hover { color: var(--cream); }
+  .row:hover .idx,
+  .row:hover .arrow { color: var(--cream); }
+  .row:hover .meta { color: rgba(250, 247, 242, 0.82); }
+  .row:hover .arrow { -webkit-transform: translateX(5px); transform: translateX(5px); }
+}
+
+/* 터치: :hover가 없는 환경에서 '눌렸다'를 알리는 유일한 피드백 */
+.row:active::before { -webkit-transform: scaleX(1); transform: scaleX(1); }
+.row:active { color: var(--cream); }
+.row:active .idx,
+.row:active .arrow { color: var(--cream); }
+.row:active .meta { color: rgba(250, 247, 242, 0.82); }
+
+/* ── 포커스 링 ───────────────────────────────────────────────────
+   행 바깥(크림 배경) 쪽에 그린다. 안쪽(-offset)에 그리면 :active 크림슨
+   스윕이 켜질 때 크림슨 링이 크림슨 배경에 묻혀 사라진다.
+   불투명 크림슨 = 크림 대비 9.23:1. */
+.row:focus,
+.contact a:focus {
+  outline: 3px solid var(--crimson);
+  outline-offset: 2px;
+}
+/* :focus-visible 미지원 Safari를 위한 폴백 3단 구성 */
+.row:focus:not(:focus-visible),
+.contact a:focus:not(:focus-visible) { outline: none; }
+
+.row:focus-visible,
+.contact a:focus-visible {
+  outline: 3px solid var(--crimson);
+  outline-offset: 2px;
+}
+
+/* ── 콜로폰 (기관 문서로 닫는 마무리) ───────────────────────────── */
+/* 괘선을 긋지 않는다. 링크 목록의 마지막 border-bottom이 이미 목록을 닫고 있어서
+   여기에 또 한 줄을 그으면 같은 굵기의 선 두 개 사이가 '빈 행'처럼 읽힌다.
+   섹션 전환은 여백과 크림슨 CONTACT 라벨이 맡는다. */
+.colophon {
+  margin-top: clamp(24px, 4.5vh, 34px);
+}
+
+.colophon-label {
+  margin-bottom: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--crimson);
+}
+
+.f-org {
+  margin-bottom: 8px;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 13.5px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--crimson-deep);
+  word-break: keep-all;
+}
+
+.addr {
+  margin-bottom: 12px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--muted);
+  word-break: keep-all;
+}
+
+/* TEL/EMAIL 키는 크림슨 인라인 태그 — 좁은 화면에서 고정폭 그리드보다 덜 깨진다 */
+.contact { margin: 0; font-size: 13px; }
+
+.contact dt {
+  flex: 0 0 auto;
+  margin-right: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--crimson);
+}
+
+.contact dd {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  color: var(--muted);
+  overflow-wrap: break-word;
+}
+
+.contact-row {
+  display: flex;
+  align-items: baseline;
+  padding: 9px 0;
+  border-top: 1px dotted var(--line);
+}
+.contact-row:first-child { border-top: 0; }
+
+/* 연락처 링크: 밑줄은 border-bottom이 아니라 text-decoration으로 그린다.
+   border-bottom은 패딩 바깥(텍스트에서 padding-bottom만큼 떨어진 곳)에 그려져서
+   아래 행의 점선과 겹친 '떠 있는 짧은 선'으로 보였다. text-decoration은 글자에 붙는다.
+   패딩과 음수 마진을 같은 값으로 맞춰 링크 박스가 행 밖으로 새지 않게 한다. */
+.contact a {
+  display: inline-block;
+  padding: 9px 4px;
+  margin: -9px -4px;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-decoration-thickness: 1px;   /* 미지원 브라우저는 기본 두께로 폴백 */
+  text-underline-offset: 4px;
+  -webkit-transition: color .2s var(--ease), text-decoration-color .2s var(--ease);
+  transition: color .2s var(--ease), text-decoration-color .2s var(--ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact a:hover {
+    color: var(--crimson-hover);
+    text-decoration-color: var(--crimson-hover);
+  }
+}
+
+/* 전화번호 2개는 원본 사이트와 같이 가운뎃점으로 한 줄에 둔다.
+   세로로 쌓으면 위아래 링크의 터치 영역(각 36px)이 서로 겹쳐 오탭이 난다. */
+.tel-list .sep {
+  margin: 0 7px;
+  color: var(--faint);
+}
+
+.copy {
+  margin-top: 20px;
+  font-size: 11.5px;
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  color: var(--faint);
+  word-break: keep-all;
+}
+
+/* ── 아주 좁은 화면 ───────────────────────────────────────────── */
+@media (max-width: 359px) {
+  .page { padding-left: 20px; padding-right: 20px; }
+  .row { padding: 15px 10px; column-gap: 11px; }
+  .label { font-size: 14.5px; }
+  .latin { letter-spacing: 0.1em; }
+}
+
+/* ── 낮은 뷰포트 (인스타그램 인앱 브라우저 등) ─────────────────── */
+@media (max-height: 700px) {
+  .masthead { padding-top: 24px; }
+  .emblem { margin-bottom: 14px; }
+  .tab { margin-bottom: 12px; }
+  .latin { margin-bottom: 12px; }
+  .links { margin-top: 22px; }
+  .row { min-height: 70px; padding-top: 14px; padding-bottom: 14px; }
+  .colophon { margin-top: 24px; }
+}
+
+/* ── 가로 모드 / 매우 낮은 높이 ───────────────────────────────── */
+@media (max-height: 560px) {
+  .masthead { padding-top: 18px; }
+  .emblem { width: 33.5px; height: 45px; }   /* 0.7451 비율 유지 */
+  .title { font-size: 26px; }
+  .tagline { font-size: 15px; }
+}
+
+/* ── 세로 여유가 큰 화면 ──────────────────────────────────────── */
+@media (min-height: 760px) {
+  .masthead { padding-top: 56px; }
+  .links { margin-top: 40px; }
+}
+
+/* ── 모션 최소화 환경 ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .row,
+  .row::before,
+  .idx,
+  .meta,
+  .arrow,
+  .contact a {
+    -webkit-transition: none !important;
+    transition: none !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) and (hover: hover) {
+  .row:hover .arrow { -webkit-transform: none; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar"></div>
+
+<div class="page">
+
+  <!-- 마스트헤드: 엠블럼 + 학과 정식명칭 락업 -->
+  <header class="masthead">
+    <!-- width/height 속성은 CSS 치수와 같은 0.7451 비율(×10)로 맞춰 둔다 -->
+    <img class="emblem" src="assets/ku-emblem.svg" width="447" height="600" alt="고려대학교 엠블럼">
+    <span class="tab" aria-hidden="true"></span>
+    <h1 class="title">
+      <span class="org">고려대학교 일반대학원</span>첨단기술비즈니스학과
+    </h1>
+    <p class="latin">Department of Future Science and Technology Business</p>
+    <p class="tagline">기술을 사업으로,<br>아이디어를 성장으로.</p>
+  </header>
+
+  <main>
+    <nav class="links" aria-label="학과 공식 바로가기">
+      <h2 class="sr-only">바로가기 링크</h2>
+
+      <div class="links-head" aria-hidden="true">
+        <span>Official Links</span>
+        <span class="count">전체 2개</span>
+      </div>
+
+      <ul>
+        <li>
+          <a class="row"
+             href="https://kuventureschool.com/"
+             target="_blank"
+             rel="noopener noreferrer">
+            <span class="idx" aria-hidden="true">01</span>
+            <span class="row-body">
+              <span class="label">고려대 첨단기술비즈니스학과 홈페이지</span>
+              <span class="meta">학과 소개 · 교육과정 · 입학 안내</span>
+            </span>
+            <span class="arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                <path d="M4 12h15M13.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="sr-only">새 창에서 열기</span>
+          </a>
+        </li>
+        <li>
+          <a class="row"
+             href="http://pf.kakao.com/_LexnIn"
+             target="_blank"
+             rel="noopener noreferrer">
+            <span class="idx" aria-hidden="true">02</span>
+            <span class="row-body">
+              <span class="label">고려대 첨단기술비즈니스학과 카카오톡</span>
+              <span class="meta">입학 상담 · 문의 · 공지 채널</span>
+            </span>
+            <span class="arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                <path d="M4 12h15M13.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="sr-only">새 창에서 열기</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </main>
+
+  <!-- 콜로폰: 학과 정식명칭 재선언 + 연락처 -->
+  <footer class="colophon">
+    <p class="colophon-label">Contact</p>
+    <p class="f-org">고려대학교 일반대학원 첨단기술비즈니스학과</p>
+    <p class="addr">[02841] 서울특별시 성북구 안암로 145<br>고려대학교 정운오IT교양관 105호</p>
+
+    <dl class="contact">
+      <div class="contact-row">
+        <dt>TEL</dt>
+        <dd>
+          <span class="tel-list">
+            <!-- 하이픈 없는 tel: 스킴이 일부 안드로이드 다이얼러에서 파싱이 안정적이다 -->
+            <a href="tel:0232904811">02-3290-4811</a><span class="sep" aria-hidden="true">·</span><a href="tel:0232904813">02-3290-4813</a>
+          </span>
+        </dd>
+      </div>
+      <div class="contact-row">
+        <dt>Email</dt>
+        <dd><a href="mailto:startup@korea.ac.kr">startup@korea.ac.kr</a></dd>
+      </div>
+      <div class="contact-row">
+        <dt>Instagram</dt>
+        <dd>@kuventureschool</dd>
+      </div>
+    </dl>
+
+    <p class="copy">© Korea University Graduate School<br>Department of Future Science and Technology Business</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
