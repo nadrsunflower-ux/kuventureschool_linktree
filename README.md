@@ -36,12 +36,18 @@ Safari로 확인할 때는 캐시를 비우고 **새 사생활 보호 창(⇧⌘
 
 골드 계열은 쓰지 않는다.
 
-## 배포할 때
+## 배포
 
-`<head>` 의 아래 3줄만 실제 배포 주소로 교체하면 된다. 그 외 수정할 것 없다.
+Vercel에 연결돼 있다. `main`에 푸시하면 자동 배포된다.
+
+- 운영: <https://kuventureschool-linktree.vercel.app>
+- 저장소: <https://github.com/nadrsunflower-ux/kuventureschool_linktree>
+
+수동 배포는 `vercel --prod`.
+
+커스텀 도메인을 붙이면 `<head>` 의 아래 3줄의 도메인만 바꾸면 된다.
+카카오톡·인스타그램 링크 미리보기는 **절대 URL만** 읽으므로 상대경로로 두면 안 된다.
 
 - `og:url`
 - `og:image`
 - `twitter:image`
-
-정적 호스팅(Vercel / Netlify / GitHub Pages / Cloudflare Pages)에 폴더째 올리면 그대로 동작한다.
